@@ -9,17 +9,23 @@ keys = response.json()						# Parse data to .json
 print keys
 
 val_url = "https://cdn.hackerrank.com/hackerrank/static/contests/capture-the-flag/secret/secret_json/"
-keylen = len(keys)
-val_list = [keylen]
+#keylen = len(keys)
+val_list = []
 
 for key in keys:										# loop through json object to grab each key
 	response = requests.get(val_url + key + ".json")	# GET request to fetch value using key
-	value = response.json()								
-	val_list.append(value['news_title'])				# append value to list
+	value = response.json()
+	str_value = value['news_title']
+	print str_value
+	val_list.append(str_value)							# append value to list
 
-print val_list
 val_list.sort()											# sort list
-print val_list											# output sorted list
+text_file = open("Output.txt", "w")						# create output .txt file
+for item in val_list:									# write output to .txt file
+	text = str(item)
+	text_file.write(text + "\n")
+text_file.close()
+
 
 
 
